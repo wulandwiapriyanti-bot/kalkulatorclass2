@@ -1,17 +1,35 @@
-import numpy as np
-import matplotlib.pyplot as plt
+import streamlit as st
 
-# buat rentang nilai x (hindari titik yang menyebabkan tan tak terdefinisi)
-x = np.linspace(-2*np.pi, 2*np.pi, 1000)
-y = np.tan(x)
+st.set_page_config(page_title="Kalkulator Sederhana", page_icon="🧮")
 
-plt.plot(x, y)
-plt.ylim(-10, 10)  # batasi sumbu y biar grafik tidak terlalu ekstrem
-plt.axhline(0, color='black', linewidth=0.5)
-plt.axvline(0, color='black', linewidth=0.5)
-plt.title("Grafik Fungsi tan(x)")
-plt.xlabel("x")
-plt.ylabel("tan(x)")
-plt.grid(True)
+st.title("🧮 Kalkulator Sederhana")
+st.write("Masukkan dua angka kemudian pilih operasi yang ingin dilakukan.")
 
-plt.show()
+# Input angka
+num1 = st.number_input("Angka pertama", value=0.0)
+num2 = st.number_input("Angka kedua", value=0.0)
+
+# Pilihan operasi
+operation = st.selectbox(
+    "Pilih operasi",
+    ["Tambah (+)", "Kurang (-)", "Kali (×)", "Bagi (÷)"]
+)
+
+# Tombol hitung
+if st.button("Hitung"):
+    if operation == "Tambah (+)":
+        result = num1 + num2
+
+    elif operation == "Kurang (-)":
+        result = num1 - num2
+
+    elif operation == "Kali (×)":
+        result = num1 * num2
+
+    elif operation == "Bagi (÷)":
+        if num2 == 0:
+            result = "❌ Error: Tidak bisa membagi dengan 0"
+        else:
+            result = num1 / num2
+
+    st.success(f"Hasil: {result}")
